@@ -15,11 +15,10 @@ Alerts are available for any length of text, as well as an optional dismiss butt
 
 {{< example >}}
 {{< alerts.inline >}}
-{{- range $i, $color := (index $.Site.Data "theme-colors") -}}
-<div class="alert alert-{{ $color.name }}" role="alert">
-  A simple {{ $color.name }} alert—check it out!
-</div>
-{{- end -}}
+{{- range (index $.Site.Data "theme-colors") }}
+<div class="alert alert-{{ .name }}" role="alert">
+  A simple {{ .name }} alert—check it out!
+</div>{{- end -}}
 {{< /alerts.inline >}}
 {{< /example >}}
 
@@ -32,10 +31,12 @@ Alerts are available for any length of text, as well as an optional dismiss butt
 Use the `.alert-link` utility class to quickly provide matching colored links within any alert.
 
 {{< example >}}
-{% for color in site.data.theme-colors %}
-<div class="alert alert-{{ color.name }}" role="alert">
-  A simple {{ color.name }} alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
-</div>{% endfor %}
+{{< alerts.inline >}}
+{{- range (index $.Site.Data "theme-colors") }}
+<div class="alert alert-{{ .name }}" role="alert">
+  A simple {{ .name }} alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+</div>{{ end -}}
+{{< /alerts.inline >}}
 {{< /example >}}
 
 ### Additional content

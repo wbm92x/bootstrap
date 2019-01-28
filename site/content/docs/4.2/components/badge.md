@@ -43,8 +43,10 @@ Unless the context is clear (as with the "Notifications" example, where it is un
 Add any of the below mentioned modifier classes to change the appearance of a badge.
 
 {{< example >}}
-{% for color in site.data.theme-colors %}
-<span class="badge badge-{{ color.name }}">{{ color.name | capitalize }}</span>{% endfor %}
+{{< badge.inline >}}
+{{- range (index $.Site.Data "theme-colors") }}
+<span class="badge badge-{{ .name }}">{{ .name | title }}</span>{{- end -}}
+{{< /badge.inline >}}
 {{< /example >}}
 
 {{< callout info >}}
@@ -56,8 +58,10 @@ Add any of the below mentioned modifier classes to change the appearance of a ba
 Use the `.badge-pill` modifier class to make badges more rounded (with a larger `border-radius` and additional horizontal `padding`). Useful if you miss the badges from v3.
 
 {{< example >}}
-{% for color in site.data.theme-colors %}
-<span class="badge badge-pill badge-{{ color.name }}">{{ color.name | capitalize }}</span>{% endfor %}
+{{< badge.inline >}}
+{{- range (index $.Site.Data "theme-colors") }}
+<span class="badge badge-pill badge-{{ .name }}">{{ .name | title }}</span>{{- end -}}
+{{< /badge.inline >}}
 {{< /example >}}
 
 ## Links
@@ -65,6 +69,8 @@ Use the `.badge-pill` modifier class to make badges more rounded (with a larger 
 Using the contextual `.badge-*` classes on an `<a>` element quickly provide _actionable_ badges with hover and focus states.
 
 {{< example >}}
-{% for color in site.data.theme-colors %}
-<a href="#" class="badge badge-{{ color.name }}">{{ color.name | capitalize }}</a>{% endfor %}
+{{< badge.inline >}}
+{{- range (index $.Site.Data "theme-colors") }}
+<a href="#" class="badge badge-{{ .name }}">{{ .name | title }}</a>{{- end -}}
+{{< /badge.inline >}}
 {{< /example >}}

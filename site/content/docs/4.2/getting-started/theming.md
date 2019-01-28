@@ -254,13 +254,15 @@ Many of Bootstrap's various components and utilities are built through a series 
 All colors available in Bootstrap 4, are available as Sass variables and a Sass map in `scss/_variables.scss` file. This will be expanded upon in subsequent minor releases to add additional shades, much like the [grayscale palette](#grays) we already include.
 
 <div class="row">
-  {% for color in site.data.colors %}
-    {% unless color.name == "white" or color.name == "gray" or color.name == "gray-dark" %}
+  {{< theme-colors.inline >}}
+  {{- range $.Site.Data.colors }}
+    {{ if (and (not (eq .name "white")) (not (eq .name "gray")) (not (eq .name "gray-dark"))) }}
     <div class="col-md-4">
-        <div class="p-3 mb-3 swatch-{{ color.name }}">{{ color.name | capitalize }}</div>
+      <div class="p-3 mb-3 swatch-{{ .name }}">{{ .name | title }}</div>
     </div>
-    {% endunless %}
-  {% endfor %}
+    {{ end }}
+  {{ end -}}
+  {{< /theme-colors.inline >}}
 </div>
 
 Here's how you can use these in your Sass:
@@ -284,11 +286,13 @@ In the future, we'll aim to provide Sass maps and variables for shades of each c
 We use a subset of all colors to create a smaller color palette for generating color schemes, also available as Sass variables and a Sass map in Bootstraps's `scss/_variables.scss` file.
 
 <div class="row">
-  {% for color in site.data.theme-colors %}
+  {{< theme-colors.inline >}}
+  {{- range (index $.Site.Data "theme-colors") }}
     <div class="col-md-4">
-      <div class="p-3 mb-3 swatch-{{ color.name }}">{{ color.name | capitalize }}</div>
+      <div class="p-3 mb-3 swatch-{{ .name }}">{{ .name | title }}</div>
     </div>
-  {% endfor %}
+  {{ end -}}
+  {{< /theme-colors.inline >}}
 </div>
 
 ### Grays
@@ -297,9 +301,11 @@ An expansive set of gray variables and a Sass map in `scss/_variables.scss` for 
 
 <div class="row mb-3">
   <div class="col-md-4">
-    {% for color in site.data.grays %}
-      <div class="p-3 swatch-{{ color.name }}">{{ color.name | capitalize }}</div>
-    {% endfor %}
+    {{< theme-colors.inline >}}
+    {{- range $.Site.Data.grays }}
+      <div class="p-3 swatch-{{ .name }}">{{ .name }}</div>
+    {{ end -}}
+  {{< /theme-colors.inline >}}
   </div>
 </div>
 

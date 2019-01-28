@@ -27,10 +27,12 @@ Use the border spinners for a lightweight loading indicator.
 The border spinner uses `currentColor` for its `border-color`, meaning you can customize the color with [text color utilities][color]. You can use any of our text color utilities on the standard spinner.
 
 {{< example >}}
-{% for color in site.data.theme-colors %}
-<div class="spinner-border text-{{ color.name }}" role="status">
+{{< spinner.inline >}}
+{{- range (index $.Site.Data "theme-colors") }}
+<div class="spinner-border text-{{ .name }}" role="status">
   <span class="sr-only">Loading...</span>
-</div>{% endfor %}
+</div>{{ end }}
+{{< /spinner.inline >}}
 {{< /example >}}
 
 {{< callout info >}}
@@ -50,10 +52,12 @@ If you don't fancy a border spinner, switch to the grow spinner. While it doesn'
 Once again, this spinner is built with `currentColor`, so you can easily change its appearance with [text color utilities][color]. Here it is in blue, along with the supported variants.
 
 {{< example >}}
-{% for color in site.data.theme-colors %}
-<div class="spinner-grow text-{{ color.name }}" role="status">
+{{< spinner.inline >}}
+{{- range (index $.Site.Data "theme-colors") }}
+<div class="spinner-grow text-{{ .name }}" role="status">
   <span class="sr-only">Loading...</span>
-</div>{% endfor %}
+</div>{{ end }}
+{{< /spinner.inline >}}
 {{< /example >}}
 
 ## Alignment

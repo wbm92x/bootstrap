@@ -100,14 +100,16 @@ Add `.list-group-horizontal` to change the layout of list group items from verti
 
 **ProTip:** Want equal-width list group items when horizontal? Add `.flex-fill` to each list group item.
 
-{% for bp in site.data.breakpoints %}
 {{< example >}}
-<ul class="list-group list-group-horizontal{{ bp.abbr }}">
+{{< list-group.inline >}}
+{{- range $.Site.Data.breakpoints }}
+<ul class="list-group list-group-horizontal{{ .abbr }}">
   <li class="list-group-item">Cras justo odio</li>
   <li class="list-group-item">Dapibus ac facilisis in</li>
   <li class="list-group-item">Morbi leo risus</li>
-</ul>
-{{< /example >}}{% endfor %}
+</ul>{{ end -}}
+{{< /list-group.inline >}}
+{{< /example >}}
 
 ## Contextual classes
 
@@ -117,8 +119,9 @@ Use contextual classes to style list items with a stateful background and color.
 <ul class="list-group">
   <li class="list-group-item">Dapibus ac facilisis in</li>
 
-  {% for color in site.data.theme-colors %}
-  <li class="list-group-item list-group-item-{{ color.name }}">A simple {{ color.name }} list group item</li>{% endfor %}
+  {{< list.inline >}}
+  {{- range (index $.Site.Data "theme-colors") }}
+  <li class="list-group-item list-group-item-{{ .name }}">A simple {{ .name }} list group item</li>{{ end }}{{< /list.inline >}}
 </ul>
 {{< /example >}}
 
@@ -128,8 +131,9 @@ Contextual classes also work with `.list-group-item-action`. Note the addition o
 <div class="list-group">
   <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
 
-  {% for color in site.data.theme-colors %}
-  <a href="#" class="list-group-item list-group-item-action list-group-item-{{ color.name }}">A simple {{ color.name }} list group item</a>{% endfor %}
+  {{< list.inline >}}
+  {{- range (index $.Site.Data "theme-colors") }}
+  <a href="#" class="list-group-item list-group-item-action list-group-item-{{ .name }}">A simple {{ .name }} list group item</a>{{ end }}{{< /list.inline >}}
 </div>
 {{< /example >}}
 

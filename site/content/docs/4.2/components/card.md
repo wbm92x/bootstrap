@@ -407,14 +407,16 @@ Cards include various options for customizing their backgrounds, borders, and co
 Use [text and background utilities](/docs/{{< param docs_version >}}/utilities/colors/) to change the appearance of a card.
 
 {{< example >}}
-{% for color in site.data.theme-colors %}
-<div class="card{% unless color.name == "light" %} text-white{% endunless %} bg-{{ color.name }} mb-3" style="max-width: 18rem;">
+{{< card.inline >}}
+{{- range (index $.Site.Data "theme-colors") }}
+<div class="card{{ if not (eq .name "light") }} text-white{{ end }} bg-{{ .name }} mb-3" style="max-width: 18rem;">
   <div class="card-header">Header</div>
   <div class="card-body">
-    <h5 class="card-title">{{ color.name | capitalize }} card title</h5>
+    <h5 class="card-title">{{ .name | title }} card title</h5>
     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
   </div>
-</div>{% endfor %}
+</div>{{- end -}}
+{{< /card.inline >}}
 {{< /example >}}
 
 {{< callout info >}}
@@ -426,14 +428,16 @@ Use [text and background utilities](/docs/{{< param docs_version >}}/utilities/c
 Use [border utilities](/docs/{{< param docs_version >}}/utilities/borders/) to change just the `border-color` of a card. Note that you can put `.text-{color}` classes on the parent `.card` or a subset of the card's contents as shown below.
 
 {{< example >}}
-{% for color in site.data.theme-colors %}
-<div class="card border-{{ color.name }} mb-3" style="max-width: 18rem;">
+{{< card.inline >}}
+{{- range (index $.Site.Data "theme-colors") }}
+<div class="card border-{{ .name }} mb-3" style="max-width: 18rem;">
   <div class="card-header">Header</div>
-  <div class="card-body{% unless color.name == "light" %} text-{{ color.name }}{% endunless %}">
-    <h5 class="card-title">{{ color.name | capitalize }} card title</h5>
+  <div class="card-body{{ if not (eq .name "light") }} text-{{ .name }}{{ end }}">
+    <h5 class="card-title">{{ .name | title }} card title</h5>
     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
   </div>
-</div>{% endfor %}
+</div>{{- end -}}
+{{< /card.inline >}}
 {{< /example >}}
 
 ### Mixins utilities

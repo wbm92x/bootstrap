@@ -517,12 +517,13 @@ Use contextual classes to color table rows or individual cells.
         <td>Cell</td>
       </tr>
 
-      {% for color in site.data.theme-colors %}
-      <tr class="table-{{ color.name }}">
-        <th scope="row">{{ color.name | capitalize }}</th>
+      {{< table.inline >}}
+      {{- range (index $.Site.Data "theme-colors") }}
+      <tr class="table-{{ .name }}">
+        <th scope="row">{{ .name | title }}</th>
         <td>Cell</td>
         <td>Cell</td>
-      </tr>{% endfor %}
+      </tr>{{ end }}{{< /table.inline >}}
     </tbody>
   </table>
 </div>
@@ -530,14 +531,16 @@ Use contextual classes to color table rows or individual cells.
 {{< highlight html >}}
 <!-- On rows -->
 <tr class="table-active">...</tr>
-{% for color in site.data.theme-colors %}
-<tr class="table-{{ color.name }}">...</tr>{% endfor %}
+{{< table.inline >}}
+{{- range (index $.Site.Data "theme-colors") }}
+<tr class="table-{{ .name }}">...</tr>{{ end }}{{< /table.inline >}}
 
 <!-- On cells (`td` or `th`) -->
 <tr>
   <td class="table-active">...</td>
-  {% for color in site.data.theme-colors %}
-  <td class="table-{{ color.name }}">...</td>{% endfor %}
+  {{< table.inline >}}
+  {{- range (index $.Site.Data "theme-colors") }}
+  <td class="table-{{ .name }}">...</td>{{ end }}{{< /table.inline >}}
 </tr>
 {{< /highlight >}}
 
@@ -755,66 +758,77 @@ Use `.table-responsive{-sm|-md|-lg|-xl}` as needed to create responsive tables u
 
 **These tables may appear broken until their responsive styles apply at specific viewport widths.**
 
-{% for bp in site.data.breakpoints %}{% unless bp.breakpoint == "xs" %}
+{{< tables.inline >}}
+{{ range $i, $bp := $.Site.Data.breakpoints }}
+{{ if not (eq $bp "xs") }}
 <div class="bd-example">
-<div class="table-responsive{{ bp.abbr }}">
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Heading</th>
-        <th scope="col">Heading</th>
-        <th scope="col">Heading</th>
-        <th scope="col">Heading</th>
-        <th scope="col">Heading</th>
-        <th scope="col">Heading</th>
-        <th scope="col">Heading</th>
-        <th scope="col">Heading</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-responsive{{ $bp.abbr }}">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Heading</th>
+          <th scope="col">Heading</th>
+          <th scope="col">Heading</th>
+          <th scope="col">Heading</th>
+          <th scope="col">Heading</th>
+          <th scope="col">Heading</th>
+          <th scope="col">Heading</th>
+          <th scope="col">Heading</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Cell</td>
+          <td>Cell</td>
+          <td>Cell</td>
+          <td>Cell</td>
+          <td>Cell</td>
+          <td>Cell</td>
+          <td>Cell</td>
+          <td>Cell</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>Cell</td>
+          <td>Cell</td>
+          <td>Cell</td>
+          <td>Cell</td>
+          <td>Cell</td>
+          <td>Cell</td>
+          <td>Cell</td>
+          <td>Cell</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>Cell</td>
+          <td>Cell</td>
+          <td>Cell</td>
+          <td>Cell</td>
+          <td>Cell</td>
+          <td>Cell</td>
+          <td>Cell</td>
+          <td>Cell</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
-</div>
+{{ end -}}
+{{- end -}}
+{{< /tables.inline >}}
+
 {{< highlight html >}}
-<div class="table-responsive{{ bp.abbr }}">
+{{< tables.inline >}}
+{{- range $i, $bp := $.Site.Data.breakpoints -}}
+{{- if not (eq $bp "xs") }}
+<div class="table-responsive{{ $bp.abbr }}">
   <table class="table">
     ...
   </table>
 </div>
+{{ end -}}
+{{- end -}}
+{{< /tables.inline >}}
 {{< /highlight >}}
-{% endunless %}{% endfor %}

@@ -11,8 +11,9 @@ toc: true
 Bootstrap includes several predefined button styles, each serving its own semantic purpose, with a few extras thrown in for more control.
 
 {{< example >}}
-{% for color in site.data.theme-colors %}
-<button type="button" class="btn btn-{{ color.name }}">{{ color.name | capitalize }}</button>{% endfor %}
+{{< buttons.inline >}}
+{{- range (index $.Site.Data "theme-colors") }}
+<button type="button" class="btn btn-{{ .name }}">{{ .name | title }}</button>{{ end }}{{< /buttons.inline >}}
 
 <button type="button" class="btn btn-link">Link</button>
 {{< /example >}}
@@ -40,8 +41,9 @@ When using button classes on `<a>` elements that are used to trigger in-page fun
 In need of a button, but not the hefty background colors they bring? Replace the default modifier classes with the `.btn-outline-*` ones to remove all background images and colors on any button.
 
 {{< example >}}
-{% for color in site.data.theme-colors %}
-<button type="button" class="btn btn-outline-{{ color.name }}">{{ color.name | capitalize }}</button>{% endfor %}
+{{< buttons.inline >}}
+{{- range (index $.Site.Data "theme-colors") }}
+<button type="button" class="btn btn-outline-{{ .name }}">{{ .name | title }}</button>{{ end }}{{< /buttons.inline >}}
 {{< /example >}}
 
 ## Sizes

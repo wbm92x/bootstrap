@@ -9,8 +9,9 @@ toc: true
 ## Color
 
 {{< example >}}
-{% for color in site.data.theme-colors %}
-<p class="text-{{ color.name }}{% if color.name == "light" %} bg-dark{{ end }}">.text-{{ color.name }}</p>{% endfor %}
+{{< colors.inline >}}
+{{- range (index $.Site.Data "theme-colors") }}
+<p class="text-{{ .name }}{{ if eq .name "light" }} bg-dark{{ end }}">.text-{{ .name }}</p>{{ end }}{{< /colors.inline >}}
 <p class="text-body">.text-body</p>
 <p class="text-muted">.text-muted</p>
 <p class="text-white bg-dark">.text-white</p>
@@ -21,8 +22,9 @@ toc: true
 Contextual text classes also work well on anchors with the provided hover and focus states. **Note that the `.text-white` and `.text-muted` class has no additional link styling beyond underline.**
 
 {{< example >}}
-{% for color in site.data.theme-colors %}
-<p><a href="#" class="text-{{ color.name }}{% if color.name == "light" %} bg-dark{{ end }}">{{ color.name | capitalize }} link</a></p>{% endfor %}
+{{< colors.inline >}}
+{{- range (index $.Site.Data "theme-colors") }}
+<p><a href="#" class="text-{{ .name }}{{ if eq .name "light" }} bg-dark{{ end }}">{{ .name | title }} link</a></p>{{ end }}{{< /colors.inline >}}
 <p><a href="#" class="text-muted">Muted link</a></p>
 <p><a href="#" class="text-white bg-dark">White link</a></p>
 {{< /example >}}
@@ -32,8 +34,9 @@ Contextual text classes also work well on anchors with the provided hover and fo
 Similar to the contextual text color classes, easily set the background of an element to any contextual class. Anchor components will darken on hover, just like the text classes. Background utilities **do not set `color`**, so in some cases you'll want to use `.text-*` utilities.
 
 {{< example >}}
-{% for color in site.data.theme-colors %}
-<div class="p-3 mb-2 bg-{{ color.name }} {% if color.name == "light" or color.name == "warning" %}text-dark{{ else }}text-white{{ end }}">.bg-{{ color.name }}</div>{% endfor %}
+{{< colors.inline >}}
+{{- range (index $.Site.Data "theme-colors") }}
+<div class="p-3 mb-2 bg-{{ .name }} {{ if or (eq .name "light") (eq .name "warning") }}text-dark{{ else }}text-white{{ end }}">.bg-{{ .name }}</div>{{ end }}{{< /colors.inline >}}
 <div class="p-3 mb-2 bg-white text-dark">.bg-white</div>
 <div class="p-3 mb-2 bg-transparent text-dark">.bg-transparent</div>
 {{< /example >}}
