@@ -16,17 +16,20 @@ See also:
 * [WebKit bug 159753: [meta] Issues affecting Bootstrap](https://bugs.webkit.org/show_bug.cgi?id=159753)
 * [jQuery's browser bug workarounds](https://docs.google.com/document/d/1LPaPA30bLUB_publLIMF0RlhdnPx_ePXm7oW02iiT6o)
 
+
+{{< bug.inline >}}
+{{- $type := .Get "type" | default "bug" -}}
+{{- $data := .Get "data" | default "browser-bugs" -}}
 <table class="bd-browser-bugs table table-bordered table-hover">
   <thead>
     <tr>
       <th>Browser(s)</th>
-      <th>Summary of bug</th>
-      <th>Upstream bug(s)</th>
+      <th>Summary of {{ $type }}</th>
+      <th>Upstream issue(s)</th>
       <th>Bootstrap issue(s)</th>
     </tr>
   </thead>
   <tbody>
-    {{< bug.inline >}}
     {{- range (index $.Site.Data $data) }}
     <tr>
       <td>{{ .browser | chomp }}</td>
@@ -35,9 +38,9 @@ See also:
       <td>{{ partial "bugify" .origin }}</td>
     </tr>
     {{- end }}
-    {{< /bug.inline >}}
   </tbody>
 </table>
+ {{< /bug.inline >}}
 
 # Most wanted features
 
@@ -45,25 +48,4 @@ There are several features specified in Web standards which would allow us to ma
 
 We publicly list these "most wanted" feature requests here, in the hopes of expediting the process of getting them implemented.
 
-<table class="bd-browser-bugs table table-bordered table-hover">
-  <thead>
-    <tr>
-      <th>Browser(s)</th>
-      <th>Summary of feature</th>
-      <th>Upstream issue(s)</th>
-      <th>Bootstrap issue(s)</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{< feat.inline >}}
-    {{ range (index $.Site.Data "browser-features") }}
-    <tr>
-      <td>{{ .browser }}</td>
-      <td>{{ .summary | markdownify }}</td>
-      <td>{{ partial "bugify" .upstream_bug }}</td>
-      <td>{{ partial "bugify" .origin }}</td>
-    </tr>
-    {{ end }}
-    {{< /feat.inline >}}
-  </tbody>
-</table>
+{{< bug.inline data="browser-features" type="feature" />}}
