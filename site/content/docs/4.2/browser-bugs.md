@@ -31,8 +31,8 @@ See also:
     <tr>
       <td>{{ .browser | chomp }}</td>
       <td>{{ .summary | markdownify }}</td>
-      <td>{% include bugify.html content=bug.upstream_bug %}</td>
-      <td>{% include bugify.html content=bug.origin %}</td>
+      <td>{{ partial "bugify" .upstream_bug }}</td>
+      <td>{{ partial "bugify" .origin }}</td>
     </tr>
     {{- end }}
     {{< /bug.inline >}}
