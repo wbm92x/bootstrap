@@ -166,7 +166,7 @@
   upstream_bug: >
     Chromium#419108
   origin: >
-    Offshoot of Bootstrap#8350 & Chromium#337668
+    Bootstrap#8350, Chromium#337668
 
 -
   browser: >

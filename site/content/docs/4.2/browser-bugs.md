@@ -60,8 +60,8 @@ We publicly list these "most wanted" feature requests here, in the hopes of expe
     <tr>
       <td>{{ .browser }}</td>
       <td>{{ .summary | markdownify }}</td>
-      <td>{% include bugify.html content=feat.upstream_bug %}</td>
-      <td>{% include bugify.html content=feat.origin %}</td>
+      <td>{{ partial "bugify" .upstream_bug }}</td>
+      <td>{{ partial "bugify" .origin }}</td>
     </tr>
     {{ end }}
     {{< /feat.inline >}}
